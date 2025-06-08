@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60" height="80" viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+    <!-- Body -->
+    <circle cx="30" cy="25" r="15" fill="#FFB6C1"/>
+    <!-- Dress -->
+    <path d="M15 40 L45 40 L40 70 L20 70 Z" fill="#FF69B4"/>
+    <!-- Eyes -->
+    <circle cx="25" cy="20" r="3" fill="#000"/>
+    <circle cx="35" cy="20" r="3" fill="#000"/>
+    <!-- Smile -->
+    <path d="M25 30 Q30 35 35 30" stroke="#000" fill="none" stroke-width="2"/>
+    <!-- Hair -->
+    <path d="M15 15 Q30 5 45 15" stroke="#8B4513" fill="none" stroke-width="4"/>
+</svg> 

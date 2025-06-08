@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50" height="100" viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg">
+    <!-- Cloud -->
+    <path d="M10 40 Q20 30 30 40 Q40 30 50 40 Q40 50 30 50 Q20 50 10 40" fill="#FFB6C1"/>
+    <path d="M15 45 Q25 35 35 45 Q45 35 55 45 Q45 55 35 55 Q25 55 15 45" fill="#FFB6C1"/>
+    <!-- Raindrops -->
+    <path d="M20 60 L25 70" stroke="#87CEEB" stroke-width="2"/>
+    <path d="M30 65 L35 75" stroke="#87CEEB" stroke-width="2"/>
+    <path d="M40 60 L45 70" stroke="#87CEEB" stroke-width="2"/>
+</svg> 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Sky -->
+    <rect width="800" height="600" fill="#FFE4E1"/>
+    
+    <!-- Ground -->
+    <rect y="500" width="800" height="100" fill="#98FB98"/>
+    
+    <!-- Small flowers -->
+    <g transform="translate(50, 450)">
+        <circle cx="0" cy="0" r="5" fill="#FFB6C1"/>
+        <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+    </g>
+    <g transform="translate(150, 470)">
+        <circle cx="0" cy="0" r="5" fill="#FFB6C1"/>
+        <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+    </g>
+    <g transform="translate(250, 460)">
+        <circle cx="0" cy="0" r="5" fill="#FFB6C1"/>
+        <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+    </g>
+    <g transform="translate(350, 480)">
+        <circle cx="0" cy="0" r="5" fill="#FFB6C1"/>
+        <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+    </g>
+    <g transform="translate(450, 450)">
+        <circle cx="0" cy="0" r="5" fill="#FFB6C1"/>
+        <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+    </g>
+    <g transform="translate(550, 470)">
+        <circle cx="0" cy="0" r="5" fill="#FFB6C1"/>
+        <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+    </g>
+    <g transform="translate(650, 460)">
+        <circle cx="0" cy="0" r="5" fill="#FFB6C1"/>
+        <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+    </g>
+    <g transform="translate(750, 480)">
+        <circle cx="0" cy="0" r="5" fill="#FFB6C1"/>
+        <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+    </g>
+    
+    <!-- Clouds -->
+    <g transform="translate(100, 100)">
+        <circle cx="0" cy="0" r="20" fill="#FFB6C1"/>
+        <circle cx="20" cy="0" r="15" fill="#FFB6C1"/>
+        <circle cx="40" cy="0" r="20" fill="#FFB6C1"/>
+    </g>
+    <g transform="translate(400, 150)">
+        <circle cx="0" cy="0" r="20" fill="#FFB6C1"/>
+        <circle cx="20" cy="0" r="15" fill="#FFB6C1"/>
+        <circle cx="40" cy="0" r="20" fill="#FFB6C1"/>
+    </g>
+    <g transform="translate(700, 120)">
+        <circle cx="0" cy="0" r="20" fill="#FFB6C1"/>
+        <circle cx="20" cy="0" r="15" fill="#FFB6C1"/>
+        <circle cx="40" cy="0" r="20" fill="#FFB6C1"/>
+    </g>
+</svg> 
