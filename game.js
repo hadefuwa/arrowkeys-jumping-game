@@ -255,7 +255,7 @@ function draw() {
     ctx.fillText(`Level: ${level}`, 20, 120);
 
     // Draw version number in bottom right
-    const GAME_VERSION = 'v1.0.3';
+    const GAME_VERSION = 'v1.0.4';
     ctx.font = '18px Comic Sans MS, Comic Sans, cursive';
     ctx.fillStyle = '#ff69b4';
     ctx.textAlign = 'right';
@@ -310,5 +310,7 @@ window.addEventListener('resize', () => {
 function getObstacleSpacing() {
     const baseSpacing = 400;
     const spacingIncrease = 30; // Increase spacing by 30px per level
-    return baseSpacing + (level - 1) * spacingIncrease;
+    const milestoneBonus = 100; // Extra spacing every 10 levels
+    const milestoneCount = Math.floor((level - 1) / 10);
+    return baseSpacing + (level - 1) * spacingIncrease + milestoneCount * milestoneBonus;
 } 
