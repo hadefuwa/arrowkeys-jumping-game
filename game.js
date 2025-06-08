@@ -54,7 +54,9 @@ let firstSpawn = true; // Add flag for first spawn
 let isDucking = false;
 let duckTimer = 0;
 const maxDuckTime = 60; // Maximum frames you can stay ducked (1 second)
-let obstacleInterval = 120; // Initial interval between obstacles
+let obstacleInterval = 180; // Increased from 120 to 180 for easier Level 1
+let duckCooldown = 0;
+const duckCooldownTime = 60; // 1 second cooldown
 
 // Add high score functionality
 let highScore = localStorage.getItem('highScore') || 0;
@@ -92,9 +94,11 @@ document.addEventListener('keydown', (e) => {
         player.velocityY = -player.jumpForce;
     }
     
-    if (e.key === 'ArrowDown' && !player.isDucking) {
-        player.isDucking = true;
-        player.height = player.duckHeight;
+    if (e.key === 'ArrowDown' || e.key === 's') {
+        if (!isDucking && duckCooldown === 0 && player.onGround) {
+            isDucking = true;
+            duckTimer = 0;
+        }
     }
 });
 
@@ -155,7 +159,10 @@ function update() {
         if (duckTimer >= maxDuckTime) {
             isDucking = false;
             duckTimer = 0;
+            duckCooldown = duckCooldownTime; // Start cooldown after ducking
         }
+    } else if (duckCooldown > 0) {
+        duckCooldown--;
     }
 
     // Update level and difficulty
@@ -165,7 +172,7 @@ function update() {
         levelTimer = 0;
         speedMultiplier = 1 + (level * 0.2); // Increase speed by 20% each level
         obstacleSpeed = 5 * speedMultiplier;
-        obstacleInterval = Math.max(30, 120 - (level * 10)); // Decrease spawn interval each level
+        obstacleInterval = Math.max(60, 180 - (level * 15)); // Decrease interval more gradually, min 60
     }
 
     // Update obstacles with new speed
@@ -207,7 +214,7 @@ function update() {
             // Level up every 5 points
             if (score % 5 === 0) {
                 level++;
-                obstacleInterval = Math.max(30, obstacleInterval - 2);
+                obstacleInterval = Math.max(60, obstacleInterval - 2);
             }
         }
     });
