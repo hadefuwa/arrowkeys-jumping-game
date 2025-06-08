@@ -56,7 +56,6 @@ const maxDuckTime = 60; // Maximum frames you can stay ducked (1 second)
 let obstacleInterval = 180; // Constant interval between obstacles
 let duckCooldown = 0;
 const duckCooldownTime = 60; // 1 second cooldown
-const OBSTACLE_SPACING = 400; // Fixed pixel distance between obstacles
 
 // Add high score functionality
 let highScore = localStorage.getItem('highScore') || 0;
@@ -190,7 +189,7 @@ function update() {
         firstObstacleSpawned = true;
     } else if (
         obstacles.length > 0 &&
-        obstacles[obstacles.length - 1].x < canvas.width - OBSTACLE_SPACING
+        obstacles[obstacles.length - 1].x < canvas.width - getObstacleSpacing()
     ) {
         createObstacle();
     }
@@ -256,7 +255,7 @@ function draw() {
     ctx.fillText(`Level: ${level}`, 20, 120);
 
     // Draw version number in bottom right
-    const GAME_VERSION = 'v1.0.2';
+    const GAME_VERSION = 'v1.0.3';
     ctx.font = '18px Comic Sans MS, Comic Sans, cursive';
     ctx.fillStyle = '#ff69b4';
     ctx.textAlign = 'right';
@@ -305,4 +304,11 @@ window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     player.y = FLOOR_Y - player.height;
-}); 
+});
+
+// Remove the constant OBSTACLE_SPACING and make it a function of level
+function getObstacleSpacing() {
+    const baseSpacing = 400;
+    const spacingIncrease = 30; // Increase spacing by 30px per level
+    return baseSpacing + (level - 1) * spacingIncrease;
+} 
