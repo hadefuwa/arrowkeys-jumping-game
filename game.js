@@ -44,7 +44,6 @@ let levelTimer = 0;
 const levelDuration = 1000; // 20 seconds per level
 let speedMultiplier = 1;
 let obstacleSpeed = 5;
-let obstacleTimer = 0;
 let gameOver = false;
 let backgroundX = 0;
 let spawnTimer = 0;
@@ -57,6 +56,7 @@ const maxDuckTime = 60; // Maximum frames you can stay ducked (1 second)
 let obstacleInterval = 180; // Constant interval between obstacles
 let duckCooldown = 0;
 const duckCooldownTime = 60; // 1 second cooldown
+const OBSTACLE_SPACING = 400; // Fixed pixel distance between obstacles
 
 // Add high score functionality
 let highScore = localStorage.getItem('highScore') || 0;
@@ -77,7 +77,6 @@ function restartGame() {
         levelTimer = 0;
         speedMultiplier = 1;
         obstacleSpeed = 5;
-        obstacleTimer = 0;
         gameOver = false;
     }
 }
@@ -183,11 +182,12 @@ function update() {
     // Remove obstacles that are off screen
     obstacles = obstacles.filter(obstacle => obstacle.x > -obstacle.width);
 
-    // Create new obstacles
-    obstacleTimer++;
-    if (obstacleTimer > obstacleInterval) {
+    // Spawn obstacles with fixed spacing
+    if (
+        obstacles.length === 0 ||
+        (obstacles[obstacles.length - 1].x < canvas.width - OBSTACLE_SPACING)
+    ) {
         createObstacle();
-        obstacleTimer = 0;
     }
 
     // Update obstacles
@@ -212,22 +212,6 @@ function update() {
             score++;
         }
     });
-
-    // Spawn obstacles
-    spawnTimer++;
-    if (firstSpawn) {
-        // First obstacle appears after 30 frames (0.5 seconds)
-        if (spawnTimer >= 30) {
-            createObstacle();
-            firstSpawn = false;
-            spawnTimer = 0;
-        }
-    } else if (spawnTimer >= spawnDelay) {
-        createObstacle();
-        spawnTimer = 0;
-        // Decrease spawn delay over time
-        spawnDelay = Math.max(initialSpawnDelay * 0.5, spawnDelay * 0.99);
-    }
 }
 
 // Draw game
