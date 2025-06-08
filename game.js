@@ -46,6 +46,9 @@ let obstacleInterval = 150;
 let gameOver = false;
 let backgroundX = 0;
 
+// Add high score functionality
+let highScore = localStorage.getItem('highScore') || 0;
+
 // Add restart functionality
 function restartGame() {
     if (gameOver) {
@@ -146,6 +149,11 @@ function update() {
             player.y + hitboxMargin < obstacle.y + obstacle.height - hitboxMargin &&
             player.y + player.height - hitboxMargin > obstacle.y + hitboxMargin) {
             gameOver = true;
+            // Update high score if current score is higher
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('highScore', highScore);
+            }
         }
 
         // Remove off-screen obstacles
@@ -153,11 +161,11 @@ function update() {
             obstacles.splice(index, 1);
             score++;
             
-            // Level up every 5 points instead of 15
+            // Level up every 5 points
             if (score % 5 === 0) {
                 level++;
-                gameSpeed += 0.2; // Reduced from 0.3 to 0.2 for smoother progression
-                obstacleInterval = Math.max(120, obstacleInterval - 2); // Reduced interval decrease and increased minimum
+                gameSpeed += 0.2;
+                obstacleInterval = Math.max(120, obstacleInterval - 2);
             }
         }
     });
@@ -193,11 +201,12 @@ function draw() {
         ctx.drawImage(sprite, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
     });
 
-    // Draw score and level with girly style
+    // Draw score, high score and level with girly style
     ctx.fillStyle = '#FF69B4';
     ctx.font = 'bold 24px Comic Sans MS';
     ctx.fillText(`Score: ${score}`, 20, 40);
-    ctx.fillText(`Level: ${level}`, 20, 70);
+    ctx.fillText(`High Score: ${highScore}`, 20, 70);
+    ctx.fillText(`Level: ${level}`, 20, 100);
 
     // Draw game over screen
     if (gameOver) {
@@ -209,7 +218,8 @@ function draw() {
         ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
         ctx.font = 'bold 24px Comic Sans MS';
         ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 40);
-        ctx.fillText('Press any key or click to restart', canvas.width / 2, canvas.height / 2 + 80);
+        ctx.fillText(`High Score: ${highScore}`, canvas.width / 2, canvas.height / 2 + 70);
+        ctx.fillText('Press any key or click to restart', canvas.width / 2, canvas.height / 2 + 100);
     }
 }
 
