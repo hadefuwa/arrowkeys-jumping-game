@@ -54,6 +54,7 @@ let firstSpawn = true; // Add flag for first spawn
 let isDucking = false;
 let duckTimer = 0;
 const maxDuckTime = 60; // Maximum frames you can stay ducked (1 second)
+let obstacleInterval = 120; // Initial interval between obstacles
 
 // Add high score functionality
 let highScore = localStorage.getItem('highScore') || 0;
