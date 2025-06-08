@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="60" height="80" viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
-    <!-- Body -->
-    <circle cx="30" cy="25" r="15" fill="#FFB6C1"/>
-    <!-- Dress -->
-    <path d="M15 40 L45 40 L40 70 L20 70 Z" fill="#FF69B4"/>
-    <!-- Eyes -->
-    <circle cx="25" cy="20" r="3" fill="#000"/>
-    <circle cx="35" cy="20" r="3" fill="#000"/>
-    <!-- Smile -->
-    <path d="M25 30 Q30 35 35 30" stroke="#000" fill="none" stroke-width="2"/>
     <!-- Hair -->
-    <path d="M15 15 Q30 5 45 15" stroke="#8B4513" fill="none" stroke-width="4"/>
+    <path d="M15 15 Q30 5 45 15 Q50 25 45 35 Q40 40 35 38 Q30 35 25 38 Q20 40 15 35 Q10 25 15 15" fill="#4A3000"/>
+    <path d="M15 15 Q30 5 45 15 Q50 25 45 35 Q40 40 35 38 Q30 35 25 38 Q20 40 15 35 Q10 25 15 15" fill="none" stroke="#2A1800" stroke-width="1"/>
+    
+    <!-- Face -->
+    <circle cx="30" cy="25" r="12" fill="#FFE0BD"/>
+    
+    <!-- Eyes -->
+    <ellipse cx="25" cy="22" rx="2" ry="3" fill="#4A3000"/>
+    <ellipse cx="35" cy="22" rx="2" ry="3" fill="#4A3000"/>
+    
+    <!-- Blush -->
+    <circle cx="22" cy="28" r="2" fill="#FFB6C1" opacity="0.5"/>
+    <circle cx="38" cy="28" r="2" fill="#FFB6C1" opacity="0.5"/>
+    
+    <!-- Smile -->
+    <path d="M25 30 Q30 33 35 30" stroke="#4A3000" fill="none" stroke-width="1.5"/>
+    
+    <!-- Dress -->
+    <path d="M20 40 L40 40 L45 70 L15 70 Z" fill="#FF69B4"/>
+    <path d="M20 40 L40 40 L45 70 L15 70 Z" fill="none" stroke="#FF1493" stroke-width="1"/>
+    
+    <!-- Dress Details -->
+    <path d="M25 45 L35 45" stroke="#FF1493" stroke-width="1"/>
+    <path d="M23 50 L37 50" stroke="#FF1493" stroke-width="1"/>
+    <path d="M21 55 L39 55" stroke="#FF1493" stroke-width="1"/>
+    
+    <!-- Arms -->
+    <path d="M20 40 Q15 45 12 50" stroke="#FFE0BD" stroke-width="3" fill="none"/>
+    <path d="M40 40 Q45 45 48 50" stroke="#FFE0BD" stroke-width="3" fill="none"/>
+    
+    <!-- Legs -->
+    <path d="M25 70 L25 75" stroke="#FFE0BD" stroke-width="3" fill="none"/>
+    <path d="M35 70 L35 75" stroke="#FFE0BD" stroke-width="3" fill="none"/>
+    
+    <!-- Shoes -->
+    <path d="M22 75 L28 75" stroke="#4A3000" stroke-width="2" fill="none"/>
+    <path d="M32 75 L38 75" stroke="#4A3000" stroke-width="2" fill="none"/>
 </svg> 
