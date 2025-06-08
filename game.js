@@ -49,7 +49,7 @@ let backgroundX = 0;
 let spawnTimer = 0;
 const initialSpawnDelay = 60; // Reduced from 120 to 60 frames (1 second)
 let spawnDelay = initialSpawnDelay;
-let firstSpawn = true; // Add flag for first spawn
+let firstObstacleSpawned = false;
 let isDucking = false;
 let duckTimer = 0;
 const maxDuckTime = 60; // Maximum frames you can stay ducked (1 second)
@@ -78,6 +78,7 @@ function restartGame() {
         speedMultiplier = 1;
         obstacleSpeed = 5;
         gameOver = false;
+        firstObstacleSpawned = false;
     }
 }
 
@@ -183,9 +184,12 @@ function update() {
     obstacles = obstacles.filter(obstacle => obstacle.x > -obstacle.width);
 
     // Spawn obstacles with fixed spacing
-    if (
-        obstacles.length === 0 ||
-        (obstacles[obstacles.length - 1].x < canvas.width - OBSTACLE_SPACING)
+    if (!firstObstacleSpawned) {
+        createObstacle();
+        firstObstacleSpawned = true;
+    } else if (
+        obstacles.length > 0 &&
+        obstacles[obstacles.length - 1].x < canvas.width - OBSTACLE_SPACING
     ) {
         createObstacle();
     }
