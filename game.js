@@ -54,7 +54,7 @@ let firstSpawn = true; // Add flag for first spawn
 let isDucking = false;
 let duckTimer = 0;
 const maxDuckTime = 60; // Maximum frames you can stay ducked (1 second)
-let obstacleInterval = 180; // Increased from 120 to 180 for easier Level 1
+let obstacleInterval = 180; // Constant interval between obstacles
 let duckCooldown = 0;
 const duckCooldownTime = 60; // 1 second cooldown
 
@@ -119,12 +119,13 @@ document.addEventListener('click', () => {
 // Create obstacle
 function createObstacle() {
     const isFlower = level < 10 ? true : level < 20 ? false : Math.random() < 0.5;
-    const height = isFlower ? 50 : 90;
-    const y = FLOOR_Y - height;
+    const baseHeight = 40;
+    const maxExtraHeight = 60;
+    const height = baseHeight + Math.min(level * 10, maxExtraHeight); // Max out extra height
     
     obstacles.push({
         x: canvas.width,
-        y: y,
+        y: FLOOR_Y - height,
         width: 40,
         height: height,
         isFlower: isFlower
@@ -172,7 +173,6 @@ function update() {
         levelTimer = 0;
         speedMultiplier = 1 + (level * 0.2); // Increase speed by 20% each level
         obstacleSpeed = 5 * speedMultiplier;
-        obstacleInterval = Math.max(60, 180 - (level * 15)); // Decrease interval more gradually, min 60
     }
 
     // Update obstacles with new speed
@@ -210,12 +210,6 @@ function update() {
         if (obstacle.x + obstacle.width < 0) {
             obstacles.splice(index, 1);
             score++;
-            
-            // Level up every 5 points
-            if (score % 5 === 0) {
-                level++;
-                obstacleInterval = Math.max(60, obstacleInterval - 2);
-            }
         }
     });
 
