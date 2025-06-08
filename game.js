@@ -39,12 +39,21 @@ player.y = FLOOR_Y - player.height;
 
 let obstacles = [];
 let score = 0;
-let level = 0;
-let gameSpeed = 4;
+let level = 1;
+let levelTimer = 0;
+const levelDuration = 1000; // 20 seconds per level
+let speedMultiplier = 1;
+let obstacleSpeed = 5;
 let obstacleTimer = 0;
-let obstacleInterval = 150;
 let gameOver = false;
 let backgroundX = 0;
+let spawnTimer = 0;
+const initialSpawnDelay = 60; // Reduced from 120 to 60 frames (1 second)
+let spawnDelay = initialSpawnDelay;
+let firstSpawn = true; // Add flag for first spawn
+let isDucking = false;
+let duckTimer = 0;
+const maxDuckTime = 60; // Maximum frames you can stay ducked (1 second)
 
 // Add high score functionality
 let highScore = localStorage.getItem('highScore') || 0;
@@ -61,10 +70,11 @@ function restartGame() {
         
         obstacles = [];
         score = 0;
-        level = 0;
-        gameSpeed = 4;
+        level = 1;
+        levelTimer = 0;
+        speedMultiplier = 1;
+        obstacleSpeed = 5;
         obstacleTimer = 0;
-        obstacleInterval = 150;
         gameOver = false;
     }
 }
@@ -121,7 +131,7 @@ function update() {
     if (gameOver) return;
 
     // Update background
-    backgroundX -= gameSpeed * 0.5;
+    backgroundX -= obstacleSpeed * 0.5;
     if (backgroundX <= -canvas.width) {
         backgroundX = 0;
     }
@@ -138,10 +148,42 @@ function update() {
         }
     }
 
+    // Handle ducking
+    if (isDucking) {
+        duckTimer++;
+        if (duckTimer >= maxDuckTime) {
+            isDucking = false;
+            duckTimer = 0;
+        }
+    }
+
+    // Update level and difficulty
+    levelTimer++;
+    if (levelTimer >= levelDuration) {
+        level++;
+        levelTimer = 0;
+        speedMultiplier = 1 + (level * 0.2); // Increase speed by 20% each level
+        obstacleSpeed = 5 * speedMultiplier;
+        obstacleInterval = Math.max(30, 120 - (level * 10)); // Decrease spawn interval each level
+    }
+
+    // Update obstacles with new speed
+    obstacles.forEach(obstacle => {
+        obstacle.x -= obstacleSpeed;
+    });
+
+    // Remove obstacles that are off screen
+    obstacles = obstacles.filter(obstacle => obstacle.x > -obstacle.width);
+
+    // Create new obstacles
+    obstacleTimer++;
+    if (obstacleTimer > obstacleInterval) {
+        createObstacle();
+        obstacleTimer = 0;
+    }
+
     // Update obstacles
     obstacles.forEach((obstacle, index) => {
-        obstacle.x -= gameSpeed;
-
         // Check collision with more forgiving hitbox
         const hitboxMargin = 10;
         if (player.x + hitboxMargin < obstacle.x + obstacle.width - hitboxMargin &&
@@ -164,17 +206,25 @@ function update() {
             // Level up every 5 points
             if (score % 5 === 0) {
                 level++;
-                gameSpeed += 0.2;
-                obstacleInterval = Math.max(120, obstacleInterval - 2);
+                obstacleInterval = Math.max(30, obstacleInterval - 2);
             }
         }
     });
 
-    // Create new obstacles
-    obstacleTimer++;
-    if (obstacleTimer > obstacleInterval) {
+    // Spawn obstacles
+    spawnTimer++;
+    if (firstSpawn) {
+        // First obstacle appears after 30 frames (0.5 seconds)
+        if (spawnTimer >= 30) {
+            createObstacle();
+            firstSpawn = false;
+            spawnTimer = 0;
+        }
+    } else if (spawnTimer >= spawnDelay) {
         createObstacle();
-        obstacleTimer = 0;
+        spawnTimer = 0;
+        // Decrease spawn delay over time
+        spawnDelay = Math.max(initialSpawnDelay * 0.5, spawnDelay * 0.99);
     }
 }
 
@@ -221,6 +271,11 @@ function draw() {
         ctx.fillText(`High Score: ${highScore}`, canvas.width / 2, canvas.height / 2 + 70);
         ctx.fillText('Press any key or click to restart', canvas.width / 2, canvas.height / 2 + 100);
     }
+
+    // Draw level indicator
+    ctx.fillStyle = '#ff69b4';
+    ctx.font = '20px Arial';
+    ctx.fillText(`Level ${level}`, 20, 40);
 }
 
 // Game loop
