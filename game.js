@@ -259,12 +259,13 @@ function draw() {
         ctx.drawImage(sprite, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
     });
 
-    // Draw score, high score and level with girly style
-    ctx.fillStyle = '#FF69B4';
-    ctx.font = 'bold 24px Comic Sans MS';
+    // Draw UI (score, high score, level) at separate y-positions
+    ctx.fillStyle = '#ff69b4';
+    ctx.font = '32px Comic Sans MS, Comic Sans, cursive';
+    ctx.textAlign = 'left';
     ctx.fillText(`Score: ${score}`, 20, 40);
-    ctx.fillText(`High Score: ${highScore}`, 20, 70);
-    ctx.fillText(`Level: ${level}`, 20, 100);
+    ctx.fillText(`High Score: ${highScore}`, 20, 80);
+    ctx.fillText(`Level: ${level}`, 20, 120);
 
     // Draw game over screen
     if (gameOver) {
@@ -279,11 +280,6 @@ function draw() {
         ctx.fillText(`High Score: ${highScore}`, canvas.width / 2, canvas.height / 2 + 70);
         ctx.fillText('Press any key or click to restart', canvas.width / 2, canvas.height / 2 + 100);
     }
-
-    // Draw level indicator
-    ctx.fillStyle = '#ff69b4';
-    ctx.font = '20px Arial';
-    ctx.fillText(`Level ${level}`, 20, 40);
 }
 
 // Game loop
