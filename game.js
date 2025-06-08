@@ -250,7 +250,7 @@ function draw() {
     ctx.fillText(`Level: ${level}`, 20, 120);
 
     // Draw version number in bottom right
-    const GAME_VERSION = 'v1.0.0';
+    const GAME_VERSION = 'v1.0.1';
     ctx.font = '18px Comic Sans MS, Comic Sans, cursive';
     ctx.fillStyle = '#ff69b4';
     ctx.textAlign = 'right';
