@@ -128,7 +128,8 @@ function createObstacle() {
         y: FLOOR_Y - height,
         width: 40,
         height: height,
-        isFlower: isFlower
+        isFlower: isFlower,
+        scored: false
     });
 }
 
@@ -210,10 +211,15 @@ function update() {
             }
         }
 
+        // Increment score when player passes obstacle
+        if (!obstacle.scored && obstacle.x + obstacle.width < player.x) {
+            score++;
+            obstacle.scored = true;
+        }
+
         // Remove off-screen obstacles
         if (obstacle.x + obstacle.width < 0) {
             obstacles.splice(index, 1);
-            score++;
         }
     });
 }
@@ -250,7 +256,7 @@ function draw() {
     ctx.fillText(`Level: ${level}`, 20, 120);
 
     // Draw version number in bottom right
-    const GAME_VERSION = 'v1.0.1';
+    const GAME_VERSION = 'v1.0.2';
     ctx.font = '18px Comic Sans MS, Comic Sans, cursive';
     ctx.fillStyle = '#ff69b4';
     ctx.textAlign = 'right';
