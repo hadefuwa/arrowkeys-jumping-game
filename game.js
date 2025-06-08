@@ -261,6 +261,13 @@ function draw() {
     ctx.fillText(`High Score: ${highScore}`, 20, 80);
     ctx.fillText(`Level: ${level}`, 20, 120);
 
+    // Draw version number in bottom right
+    const GAME_VERSION = 'v1.0.0';
+    ctx.font = '18px Comic Sans MS, Comic Sans, cursive';
+    ctx.fillStyle = '#ff69b4';
+    ctx.textAlign = 'right';
+    ctx.fillText(GAME_VERSION, canvas.width - 20, canvas.height - 20);
+
     // Draw game over screen
     if (gameOver) {
         ctx.fillStyle = 'rgba(255, 192, 203, 0.85)';
