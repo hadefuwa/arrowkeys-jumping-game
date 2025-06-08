@@ -46,9 +46,32 @@ let obstacleInterval = 150;
 let gameOver = false;
 let backgroundX = 0;
 
-// Event listeners
+// Add restart functionality
+function restartGame() {
+    if (gameOver) {
+        // Reset game state
+        player.y = FLOOR_Y - player.height;
+        player.isJumping = false;
+        player.isDucking = false;
+        player.velocityY = 0;
+        player.height = player.normalHeight;
+        
+        obstacles = [];
+        score = 0;
+        level = 0;
+        gameSpeed = 4;
+        obstacleTimer = 0;
+        obstacleInterval = 150;
+        gameOver = false;
+    }
+}
+
+// Add event listeners for restart
 document.addEventListener('keydown', (e) => {
-    if (gameOver) return;
+    if (gameOver) {
+        restartGame();
+        return;
+    }
     
     if (e.key === 'ArrowUp' && !player.isJumping) {
         player.isJumping = true;
@@ -65,6 +88,13 @@ document.addEventListener('keyup', (e) => {
     if (e.key === 'ArrowDown') {
         player.isDucking = false;
         player.height = player.normalHeight;
+    }
+});
+
+// Add mouse click listener for restart
+document.addEventListener('click', () => {
+    if (gameOver) {
+        restartGame();
     }
 });
 
@@ -179,7 +209,7 @@ function draw() {
         ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
         ctx.font = 'bold 24px Comic Sans MS';
         ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 40);
-        ctx.fillText('Press F5 to restart', canvas.width / 2, canvas.height / 2 + 80);
+        ctx.fillText('Press any key or click to restart', canvas.width / 2, canvas.height / 2 + 80);
     }
 }
 
